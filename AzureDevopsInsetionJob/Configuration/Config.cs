@@ -24,7 +24,7 @@ namespace AzureDevopsInsetionJob.Configuration
                     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                     .Build();
                 using var serviceProvider = new ServiceCollection()
-                    .AddTransient<LogRunner>()
+                    .AddTransient<LogWrapper>()
                     .AddLogging(loggingBuilder =>
                     {
                         loggingBuilder.ClearProviders();
@@ -32,8 +32,8 @@ namespace AzureDevopsInsetionJob.Configuration
                         loggingBuilder.AddNLog(config);
 
                     }).BuildServiceProvider();
-                var runner = serviceProvider.GetRequiredService<LogRunner>();
-                runner.DoAction("Action1");
+                var logWrapper = serviceProvider.GetRequiredService<LogWrapper>();
+                logWrapper.LevelLogger("Info", "Internal Error");
                 Console.WriteLine("Press ANY key to exit");
                 Console.ReadKey();
             }
