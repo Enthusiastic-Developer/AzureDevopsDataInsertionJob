@@ -5,6 +5,9 @@ using NLog;
 using System;
 using AzureDevopsDataInsertionJob.Job.Interface;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
+using AzureDevopsInsetionJob.Logging;
+using AzureDevopsInsetionJob.Configuration;
 
 namespace AzureDevopsInsetionJob
 {
@@ -12,6 +15,8 @@ namespace AzureDevopsInsetionJob
     {
         static void Main(string[] args)
         {
+            IConfig config = new Config();
+            config.ConfigManagerForProgram();
         }
     }
 }
