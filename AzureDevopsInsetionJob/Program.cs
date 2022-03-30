@@ -1,12 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using NLog.Extensions.Logging;
-using NLog;
-using System;
-using AzureDevopsDataInsertionJob.Job.Interface;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Configuration;
+﻿using AzureDevopsDataInsertionJob.Job.Interface;
 using AzureDevopsInsetionJob.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using NLog;
+using NLog.Extensions.Logging;
+using System;
 
 namespace AzureDevopsInsetionJob
 {

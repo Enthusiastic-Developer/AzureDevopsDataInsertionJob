@@ -1,14 +1,6 @@
 ﻿using AzureDevopsDataInsertionJob.Job.Interface;
 using AzureDevopsInsetionJob.Domain;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using NLog;
-using NLog.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AzureDevopsInsetionJob
 {
@@ -30,6 +22,6 @@ namespace AzureDevopsInsetionJob
             _logger.LogInformation("AzureDevopsDataInsertionJob StartProcessingAsync: Ended.");
             return true;
         }
-        
+
     }
 }

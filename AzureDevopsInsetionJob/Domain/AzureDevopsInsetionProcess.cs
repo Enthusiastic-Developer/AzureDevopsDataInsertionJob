@@ -1,21 +1,24 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.VisualStudio.Services.WebApi;
-using System;
-using System.IO;
-using Microsoft.Extensions.Hosting;
 using Microsoft.TeamFoundation.Core.WebApi;
 using Microsoft.VisualStudio.Services.Common;
+using Microsoft.VisualStudio.Services.WebApi;
+using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace AzureDevopsInsetionJob.Domain
 {
     public class AzureDevopsInsetionProcess
     {
+        #region global variable declaration
+        private readonly ILogger<AzureDevopsInsetionProcess> _logger;
         private ILoggerFactory _loggerFactory;
+        #endregion
 
         public AzureDevopsInsetionProcess(ILoggerFactory loggerFactory)
         {
+            _logger = loggerFactory.CreateLogger<AzureDevopsInsetionProcess>();
             _loggerFactory = loggerFactory;
         }
 
@@ -27,19 +30,17 @@ namespace AzureDevopsInsetionJob.Domain
             var configuration = builder.Build();
             string ORG = configuration.GetSection("ProjectInformation:OrganizationURL").Value;
             string PAT = configuration.GetSection("ProjectInformation:PersonalToken").Value;
-            Console.WriteLine($"{ORG}");
-            Console.WriteLine($"{PAT}");
-            //if (ORG != null)
-            //{
-            //    Uri orgUrl = new Uri(ORG);
-            //    String personalToken = PAT;
+            if (ORG != null)
+            {
+                Uri orgUrl = new Uri(ORG);
+                string personalToken = PAT;
 
-            //    VssConnection connection = new VssConnection(orgUrl, new VssBasicCredential(string.Empty, personalToken));
+                VssConnection connection = new VssConnection(orgUrl, new VssBasicCredential(string.Empty, personalToken));
 
-            //    FetchAllProjects(connection);
-            //}
+                FetchAllProjects(connection);
+            }
         }
-        private static void FetchAllProjects(VssConnection connection)
+        private void FetchAllProjects(VssConnection connection)
         {
             try
             {
@@ -51,12 +52,12 @@ namespace AzureDevopsInsetionJob.Domain
                     Console.WriteLine($"ProjectName : {item.Name}");
                     Console.WriteLine($"ProjectName : {item.Description}");
                     Console.WriteLine($"ProjectName : {item.Visibility}");
+                    throw new Exception("Testing LogError");
                 }
             }
             catch (Exception ex)
             {
-
-                Console.WriteLine("{0}: {1}", ex.GetType(), ex.Message);
+                _logger.LogError("{0}: {1}", ex.GetType(), ex.Message);
             }
 
         }
