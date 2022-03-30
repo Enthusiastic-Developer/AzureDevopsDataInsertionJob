@@ -16,8 +16,6 @@ namespace AzureDevopsInsetionJob.Configuration
         public void ConfigManagerForProgram()
         {
             var config = new ConfigurationBuilder()
-                    .SetBasePath(System.IO.Directory.GetCurrentDirectory())
-                    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                     .Build();
             using var serviceProvider = new ServiceCollection()
                     .AddLogging(loggingBuilder =>

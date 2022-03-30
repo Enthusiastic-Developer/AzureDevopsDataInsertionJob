@@ -1,4 +1,5 @@
 ﻿using AzureDevopsDataInsertionJob.Job.Interface;
+using AzureDevopsInsetionJob.Domain;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NLog;
@@ -25,6 +26,7 @@ namespace AzureDevopsInsetionJob
         public bool StartProcessing()
         {
             _logger.LogInformation("AzureDevopsDataInsertionJob StartProcessingAsync: Started.");
+            new AzureDevopsInsetionProcess(_loggerFactory).GenerateRequestFile();
             _logger.LogInformation("AzureDevopsDataInsertionJob StartProcessingAsync: Ended.");
             return true;
         }
