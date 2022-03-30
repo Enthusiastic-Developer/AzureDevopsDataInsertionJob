@@ -1,5 +1,4 @@
-﻿using AzureDevopsInsetionJob.Logging;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NLog;
@@ -16,15 +15,11 @@ namespace AzureDevopsInsetionJob.Configuration
     {
         public void ConfigManagerForProgram()
         {
-            var logger = LogManager.GetCurrentClassLogger();
-            try
-            {
-                var config = new ConfigurationBuilder()
+            var config = new ConfigurationBuilder()
                     .SetBasePath(System.IO.Directory.GetCurrentDirectory())
                     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                     .Build();
-                using var serviceProvider = new ServiceCollection()
-                    .AddTransient<LogWrapper>()
+            using var serviceProvider = new ServiceCollection()
                     .AddLogging(loggingBuilder =>
                     {
                         loggingBuilder.ClearProviders();
@@ -32,21 +27,7 @@ namespace AzureDevopsInsetionJob.Configuration
                         loggingBuilder.AddNLog(config);
 
                     }).BuildServiceProvider();
-                var logWrapper = serviceProvider.GetRequiredService<LogWrapper>();
-                logWrapper.LevelLogger("Info", "Internal Error");
-                Console.WriteLine("Press ANY key to exit");
-                Console.ReadKey();
-            }
-            catch (Exception ex)
-            {
 
-                logger.Error(ex, "Stopped program because of exception");
-                throw;
-            }
-            finally
-            {
-                LogManager.Shutdown();
-            }
         }
     }
 }
