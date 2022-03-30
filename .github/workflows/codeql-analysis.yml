@@ -68,9 +68,6 @@ jobs:
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
-      
-    - name: First interaction
-      uses: actions/first-interaction@v1.1.0
-      
+           
     - name: Close Stale Issues
       uses: actions/stale@v5.0.0
