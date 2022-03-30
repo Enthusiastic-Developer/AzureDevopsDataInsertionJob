@@ -1,0 +1,30 @@
+name: .NET
+
+on:
+  push:
+    branches: [ development ]
+  pull_request:
+    branches: [ development ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 5.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+    - name: Setup Go environment
+      uses: actions/setup-go@v3.0.0
+      with:
+    # The Go version to download (if necessary) and use. Supports semver spec and ranges.
+        dotnet-version: 5.0.x
