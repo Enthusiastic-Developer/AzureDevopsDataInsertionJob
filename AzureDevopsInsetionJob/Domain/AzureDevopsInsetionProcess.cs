@@ -1,5 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using AzureDevopsInsetionJob.Models;
+using AzureDevopsInsetionJob.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.TeamFoundation.Core.WebApi;
 using Microsoft.VisualStudio.Services.Common;
 using Microsoft.VisualStudio.Services.WebApi;
@@ -11,15 +14,17 @@ namespace AzureDevopsInsetionJob.Domain
 {
     public class AzureDevopsInsetionProcess
     {
-        #region global variable declaration
+        #region Class global variables
         private readonly ILogger<AzureDevopsInsetionProcess> _logger;
         private ILoggerFactory _loggerFactory;
+        private readonly IOptions<IMongoDatabaseSettings> _settings = null;
         #endregion
 
-        public AzureDevopsInsetionProcess(ILoggerFactory loggerFactory)
+        public AzureDevopsInsetionProcess(ILoggerFactory loggerFactory, IOptions<IMongoDatabaseSettings> mySettings)
         {
             _logger = loggerFactory.CreateLogger<AzureDevopsInsetionProcess>();
             _loggerFactory = loggerFactory;
+            _settings = mySettings;
         }
 
         public void GenerateRequestFile()
@@ -38,6 +43,7 @@ namespace AzureDevopsInsetionJob.Domain
                 VssConnection connection = new VssConnection(orgUrl, new VssBasicCredential(string.Empty, personalToken));
 
                 FetchAllProjects(connection);
+                
             }
         }
         private void FetchAllProjects(VssConnection connection)
@@ -52,7 +58,6 @@ namespace AzureDevopsInsetionJob.Domain
                     Console.WriteLine($"ProjectName : {item.Name}");
                     Console.WriteLine($"ProjectName : {item.Description}");
                     Console.WriteLine($"ProjectName : {item.Visibility}");
-                    throw new Exception("Testing LogError");
                 }
             }
             catch (Exception ex)
