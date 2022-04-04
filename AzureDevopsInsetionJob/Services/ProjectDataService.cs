@@ -69,13 +69,14 @@ namespace AzureDevopsInsetionJob.Services
                         await col.InsertOneAsync(projectReference);
                     }
                 }
+                _logger.LogInformation("Project Data insertion is Ended");
             }
             catch (Exception ex)
             {
 
                 _logger.LogError("{0}: {1}", ex.GetType(), ex.Message);
             }
-            _logger.LogInformation("Project Data insertion is Ended");
+           
         }
         
     }
