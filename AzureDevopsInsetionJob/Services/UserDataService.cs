@@ -1,4 +1,5 @@
-﻿using AzureDevopsInsetionJob.Models;
+﻿using AzureDevopsInsetionJob.Helper;
+using AzureDevopsInsetionJob.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.TeamFoundation.Core.WebApi;
@@ -52,7 +53,7 @@ namespace AzureDevopsInsetionJob.Services
 
                     VssConnection connection = new VssConnection(orgUrl, new VssBasicCredential(string.Empty, personalToken));
                     GitHttpClient gitClient = connection.GetClient<GitHttpClient>();
-                    var project = FindAnyProject(connection);
+                    var project = ClientSampleHelpers.FindAnyProject(connection);
                     List<GitRepository> repos = gitClient.GetRepositoriesAsync(project.Id).Result;
                     List<GitCommitRef> commits = new List<GitCommitRef>();
                     foreach (var repo  in repos)
@@ -72,8 +73,6 @@ namespace AzureDevopsInsetionJob.Services
                     }
                     
                 }
-                
-
                 _logger.LogInformation("Project Data insertion is Ended");
             }
             catch (Exception ex)
@@ -82,22 +81,6 @@ namespace AzureDevopsInsetionJob.Services
                 _logger.LogError("{0}: {1}", ex.GetType(), ex.Message);
             }
            
-        }
-        public static TeamProjectReference FindAnyProject(VssConnection connection)
-        {
-            TeamProjectReference project;
-            if (!FindAnyProject(connection, out project))
-            {
-                throw new Exception("No sample projects available. Create a project in this collection and run the sample again.");
-            }
-            return project;
-        }
-        public static bool FindAnyProject(VssConnection connection, out TeamProjectReference project)
-        {
-            // Check if we already have a default project loaded
-            ProjectHttpClient projectClient = connection.GetClient<ProjectHttpClient>();
-            project = projectClient.GetProjects(null, top: 100).Result.FirstOrDefault();
-            return project != null;
         }
     }
 }
