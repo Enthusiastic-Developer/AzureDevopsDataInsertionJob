@@ -65,17 +65,7 @@ namespace AzureDevopsInsetionJob.Services
                                 CommitId = commit.CommitId,
                                 Author = commit.Author,
                                 Comment = commit.Comment,
-                                Committer = commit.Committer,
-                                CommentTruncated = commit.CommentTruncated,
-                                ChangeCounts = commit.ChangeCounts,
-                                Changes = commit.Changes,
-                                Parents = commit.Parents,
-                                Url =commit.Url,
-                                RemoteUrl = commit.RemoteUrl,
-                                Links = commit.Links,
-                                Statuses = commit.Statuses,
-                                WorkItems = commit.WorkItems,
-                                Push = commit.Push
+                                Committer = commit.Committer
                             };
                             await col.InsertOneAsync(commitRef); 
                         }
