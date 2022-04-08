@@ -36,14 +36,17 @@ namespace AzureDevopsInsetionJob.Configuration
                 });
             services.AddTransient<ProjectDataService>();
             services.AddTransient<UserDataService>();
+            services.AddTransient<RepoDataService>();
             services.Configure<MongoDatabaseSettings>(configuration.GetSection("MongoConnection"));
             services.Configure<MongoDatabaseSettings>(configuration.GetSection("ProjectInformation"));
             var provider = services.BuildServiceProvider();
 
             var PDS = provider.GetService<ProjectDataService>();
             var UDS = provider.GetService<UserDataService>();
+            var RDS = provider.GetService<RepoDataService>();
             await PDS.InsertIntoProjectsDataAsync();
             await UDS.InsertIntoUserDataAsync();
+            await RDS.InsertIntoRepoDataAsync();
         }
     }
 }

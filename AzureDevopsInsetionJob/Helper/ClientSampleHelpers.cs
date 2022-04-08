@@ -12,8 +12,7 @@ namespace AzureDevopsInsetionJob.Helper
     {
         public static TeamProjectReference FindAnyProject(VssConnection connection)
         {
-            TeamProjectReference project;
-            if (!FindAnyProject(connection, out project))
+            if (!FindAnyProject(connection, out TeamProjectReference project))
             {
                 throw new Exception("No sample projects available. Create a project in this collection and run the sample again.");
             }
