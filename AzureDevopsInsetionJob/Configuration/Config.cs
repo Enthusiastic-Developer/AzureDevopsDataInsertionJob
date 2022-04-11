@@ -34,10 +34,13 @@ namespace AzureDevopsInsetionJob.Configuration
                     loggingBuilder.AddNLog(configuration);
 
                 });
+
             services.AddTransient<ProjectDataService>();
             services.AddTransient<UserDataService>();
             services.AddTransient<RepoDataService>();
             services.AddTransient<BranchDataService>();
+            services.AddTransient<ChangesDataService>();
+
             services.Configure<MongoDatabaseSettings>(configuration.GetSection("MongoConnection"));
             services.Configure<MongoDatabaseSettings>(configuration.GetSection("ProjectInformation"));
             var provider = services.BuildServiceProvider();
@@ -46,11 +49,13 @@ namespace AzureDevopsInsetionJob.Configuration
             var UDS = provider.GetService<UserDataService>();
             var RDS = provider.GetService<RepoDataService>();
             var BDS = provider.GetService<BranchDataService>();
+            var CDS = provider.GetService<ChangesDataService>();
 
             await PDS.InsertIntoProjectsDataAsync();
             await UDS.InsertIntoUserDataAsync();
             await RDS.InsertIntoRepoDataAsync();
             await BDS.InsertIntoBranchDataAsync();
+            await CDS.InsertIntoChangesDataAsync();
         }
     }
 }
