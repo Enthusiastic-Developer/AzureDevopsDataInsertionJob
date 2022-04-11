@@ -2,16 +2,12 @@
 using AzureDevopsInsetionJob.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.TeamFoundation.Core.WebApi;
 using Microsoft.TeamFoundation.SourceControl.WebApi;
 using Microsoft.VisualStudio.Services.Common;
 using Microsoft.VisualStudio.Services.WebApi;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AzureDevopsInsetionJob.Services
@@ -56,7 +52,7 @@ namespace AzureDevopsInsetionJob.Services
                     var project = ClientSampleHelpers.FindAnyProject(connection);
                     List<GitRepository> repos = gitClient.GetRepositoriesAsync(project.Id).Result;
                     List<GitCommitRef> commits = new List<GitCommitRef>();
-                    foreach (var repo  in repos)
+                    foreach (var repo in repos)
                     {
                         commits = connection.GetClient<GitHttpClient>().GetCommitsAsync(repo.Id, new GitQueryCommitsCriteria()).Result;
                         foreach (var commit in commits)
@@ -68,10 +64,10 @@ namespace AzureDevopsInsetionJob.Services
                                 Comment = commit.Comment,
                                 Committer = commit.Committer
                             };
-                            await col.InsertOneAsync(commitRef); 
+                            await col.InsertOneAsync(commitRef);
                         }
                     }
-                    
+
                 }
                 _logger.LogInformation("Project Data insertion is Ended");
             }
@@ -80,7 +76,7 @@ namespace AzureDevopsInsetionJob.Services
 
                 _logger.LogError("{0}: {1}", ex.GetType(), ex.Message);
             }
-           
+
         }
     }
 }

@@ -9,7 +9,6 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AzureDevopsInsetionJob.Services
@@ -64,8 +63,8 @@ namespace AzureDevopsInsetionJob.Services
 
                 _logger.LogError("{0}: {1}", ex.GetType(), ex.Message);
             }
-           
+
         }
-        
+
     }
 }

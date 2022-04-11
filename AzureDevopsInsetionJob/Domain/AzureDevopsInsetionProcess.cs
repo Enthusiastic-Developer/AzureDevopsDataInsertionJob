@@ -1,5 +1,4 @@
 ﻿using AzureDevopsInsetionJob.Models;
-using AzureDevopsInsetionJob.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -43,7 +42,7 @@ namespace AzureDevopsInsetionJob.Domain
                 VssConnection connection = new VssConnection(orgUrl, new VssBasicCredential(string.Empty, personalToken));
 
                 FetchAllProjects(connection);
-                
+
             }
         }
         private void FetchAllProjects(VssConnection connection)
