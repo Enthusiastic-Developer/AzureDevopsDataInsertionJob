@@ -40,6 +40,7 @@ namespace AzureDevopsInsetionJob.Configuration
             services.AddTransient<RepoDataService>();
             services.AddTransient<BranchDataService>();
             services.AddTransient<ChangesDataService>();
+            services.AddTransient<CommitsDataService>();
 
             services.Configure<MongoDatabaseSettings>(configuration.GetSection("MongoConnection"));
             services.Configure<MongoDatabaseSettings>(configuration.GetSection("ProjectInformation"));
@@ -50,12 +51,14 @@ namespace AzureDevopsInsetionJob.Configuration
             var RDS = provider.GetService<RepoDataService>();
             var BDS = provider.GetService<BranchDataService>();
             var CDS = provider.GetService<ChangesDataService>();
+            var CODS = provider.GetService<CommitsDataService>();
 
-            await PDS.InsertIntoProjectsDataAsync();
-            await UDS.InsertIntoUserDataAsync();
-            await RDS.InsertIntoRepoDataAsync();
-            await BDS.InsertIntoBranchDataAsync();
-            await CDS.InsertIntoChangesDataAsync();
+            //await PDS.InsertIntoProjectsDataAsync();
+            //await UDS.InsertIntoUserDataAsync();
+            //await RDS.InsertIntoRepoDataAsync();
+            //await BDS.InsertIntoBranchDataAsync();
+            //await CDS.InsertIntoChangesDataAsync();
+            await CODS.InsertIntoCommitDataAsync();
         }
     }
 }
