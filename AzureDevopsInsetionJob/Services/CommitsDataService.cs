@@ -73,6 +73,7 @@ namespace AzureDevopsInsetionJob.Services
                     }
                 }
                 _logger.LogInformation("Commits Data insertion is started");
+                Console.WriteLine("CommitsDataService is Completed");
             }
             catch (Exception ex)
             {

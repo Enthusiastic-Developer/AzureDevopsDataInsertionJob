@@ -58,12 +58,13 @@ namespace AzureDevopsInsetionJob.Services
                         changes = connection.GetClient<GitHttpClient>().GetChangesAsync(commit.CommitId, repo.Id, skip: Countvalue).Result;
                         foreach (var Change in changes.Changes)
                         {
-                            //Console.WriteLine($"{Change.Item.ObjectId},{Change.Item.Url},{Change.Item.Path},{Change.ChangeType}");
                             await col.InsertOneAsync(Change);
                         }
                     }
 
                 }
+                _logger.LogInformation("Changes Data insertion is Ended");
+                Console.WriteLine("ChangesDataService is Completed");
             }
             catch (Exception ex)
             {

@@ -53,11 +53,11 @@ namespace AzureDevopsInsetionJob.Configuration
             var CDS = provider.GetService<ChangesDataService>();
             var CODS = provider.GetService<CommitsDataService>();
 
-            //await PDS.InsertIntoProjectsDataAsync();
-            //await UDS.InsertIntoUserDataAsync();
-            //await RDS.InsertIntoRepoDataAsync();
-            //await BDS.InsertIntoBranchDataAsync();
-            //await CDS.InsertIntoChangesDataAsync();
+            await PDS.InsertIntoProjectsDataAsync();
+            await UDS.InsertIntoUserDataAsync();
+            await RDS.InsertIntoRepoDataAsync();
+            await BDS.InsertIntoBranchDataAsync();
+            await CDS.InsertIntoChangesDataAsync();
             await CODS.InsertIntoCommitDataAsync();
         }
     }

@@ -90,12 +90,13 @@ namespace AzureDevopsInsetionJob.Services
 
                     List<GitBranchStats> stats = gitClient.GetBranchStatsBatchAsync(criteria, repo.Id).Result;
 
-                    Console.WriteLine("project {0}, repo {1}", project.Name, repo.Name);
                     foreach (GitBranchStats stat in stats)
                     {
                         await col.InsertOneAsync(stat);
                     }
                 }
+                _logger.LogInformation("Branch Data insertion is Ended");
+                Console.WriteLine("BranchDataService is Completed");
             }
             catch (Exception ex)
             {

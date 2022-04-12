@@ -57,6 +57,7 @@ namespace AzureDevopsInsetionJob.Services
                     }
                 }
                 _logger.LogInformation("Project Data insertion is Ended");
+                Console.WriteLine("ProjectDataService is Completed");
             }
             catch (Exception ex)
             {

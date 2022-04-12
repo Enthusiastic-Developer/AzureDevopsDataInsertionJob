@@ -55,6 +55,7 @@ namespace AzureDevopsInsetionJob.Services
                     }
                 }
                 _logger.LogInformation("Repo Data insertion is Ended");
+                Console.WriteLine("RepoDataService is Completed");
             }
             catch (Exception ex)
             {
